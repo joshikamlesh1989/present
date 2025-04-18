@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guard Attendance Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+    input, select, textarea, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Guard Attendance Form</h2>
+  <form id="attendanceForm">
+    <label for="date">Date:</label>
+    <input type="date" id="date" required><label for="name">Guard Name:</label>
+<select id="name" required>
+  <option value="">Select Guard</option>
+  <option value="Santosh Yasne">Santosh Yasne</option>
+  <option value="Mahendra Lilarey">Mahendra Lilarey</option>
+  <option value="Sanjay Bedi">Sanjay Bedi</option>
+  <option value="Jivanlal Birenwar">Jivanlal Birenwar</option>
+  <option value="Krishna Kohle">Krishna Kohle</option>
+  <option value="Yarne Kaka">Yarne Kaka</option>
+  <option value="Mahendra Bhoyar">Mahendra Bhoyar</option>
+  <option value="Laxmichand Uke">Laxmichand Uke</option>
+  <option value="Nitin Meshram">Nitin Meshram</option>
+  <option value="Vankat Mohan Mali">Vankat Mohan Mali</option>
+  <option value="Dilip Thakre">Dilip Thakre</option>
+  <option value="Vikram Uke">Vikram Uke</option>
+  <option value="Nandkishor Gutam">Nandkishor Gutam</option>
+</select>
+
+<label for="salary">Salary:</label>
+<input type="text" id="salary" disabled>
+
+<label for="shift">Shift:</label>
+<select id="shift" required>
+  <option value="">Select Shift</option>
+  <option value="Day">Day</option>
+  <option value="Night">Night</option>
+</select>
+
+<label for="inTime">In Time:</label>
+<input type="time" id="inTime" required>
+
+<label for="outTime">Out Time:</label>
+<input type="time" id="outTime">
+
+<label for="selfie">Selfie:</label>
+<input type="file" id="selfie" accept="image/*" required>
+
+<label for="remarks">Remarks:</label>
+<textarea id="remarks" placeholder="Optional"></textarea>
+
+<button type="submit">Mark Present</button>
+
+  </form>  <div id="confirmationMessage" style="display:none; padding: 10px; background-color: #28a745; color: white; margin-top: 20px;">Attendance marked successfully!</div>  <h3>Attendance Records</h3>
+  <table id="recordsTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Guard Name</th>
+        <th>Salary</th>
+        <th>Shift</th>
+        <th>In Time</th>
+        <th>Out Time</th>
+        <th>Selfie</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>  <script>
+    const guardData = {
+      "Santosh Yasne": 12000,
+      "Mahendra Lilarey": 12000,
+      "Sanjay Bedi": 11000,
+      "Jivanlal Birenwar": 10000,
+      "Krishna Kohle": 10000,
+      "Yarne Kaka": 11000,
+      "Mahendra Bhoyar": 10000,
+      "Laxmichand Uke": 11000,
+      "Nitin Meshram": 12000,
+      "Vankat Mohan Mali": 10500,
+      "Dilip Thakre": 10000,
+      "Vikram Uke": 10000,
+      "Nandkishor Gutam": 12000
+    };
+
+    document.getElementById('name').addEventListener('change', function() {
+      const guardName = this.value;
+      document.getElementById('salary').value = guardData[guardName] || '';
+    });
+
+    document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const date = document.getElementById('date').value;
+      const name = document.getElementById('name').value;
+      const salary = document.getElementById('salary').value;
+      const shift = document.getElementById('shift').value;
+      const inTime = document.getElementById('inTime').value;
+      const outTime = document.getElementById('outTime').value;
+      const remarks = document.getElementById('remarks').value;
+      const selfie = document.getElementById('selfie').files[0];
+
+      const table = document.getElementById('recordsTable').querySelector('tbody');
+      const newRow = table.insertRow();
+      newRow.innerHTML = <td>${date}</td><td>${name}</td><td>${salary}</td><td>${shift}</td><td>${inTime}</td><td>${outTime}</td><td><img src="${URL.createObjectURL(selfie)}" width="50" height="50" /></td><td>${remarks}</td>;
+
+      document.getElementById('confirmationMessage').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('confirmationMessage').style.display = 'none';
+      }, 3000);
+
+      this.reset();
+    });
+  </script></body>
+</html>
